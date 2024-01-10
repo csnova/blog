@@ -6,29 +6,6 @@ const blogpost_controller = require("../controllers/blogpostController");
 const comment_controller = require("../controllers/commentController");
 const user_controller = require("../controllers/userController");
 
-/// Comment ROUTES ///
-
-// GET request for creating a comment. NOTE This must come before routes that display comments (uses the comment id).
-router.get("/post/:postID/create", comment_controller.comment_create_get);
-
-// POST request for creating comment.
-router.post("/post/:postID/create", comment_controller.comment_create_post);
-
-// GET request for deleting a comment.
-router.get(
-  "/post/:postID/:commentID/delete",
-  comment_controller.comment_delete_get
-);
-
-// POST request for creating comment.
-router.post(
-  "/post/:postID/:commentId/delete",
-  comment_controller.comment_delete_post
-);
-
-// GET request for one comment.
-router.get("/post/:postID/:id", comment_controller.comment_detail);
-
 /// Blog Post ROUTES ///
 
 // GET home page.
@@ -46,11 +23,40 @@ router.get("/post/:postID/delete", blogpost_controller.post_delete_get);
 // POST request for creating Post.
 router.post("/post/:postID/delete", blogpost_controller.post_delete_post);
 
+// GET request for deleting a Post.
+router.get("/post/:postID/update", blogpost_controller.post_update_get);
+
+// POST request for creating Post.
+router.post("/post/:postID/update", blogpost_controller.post_update_post);
+
 // GET request for one post.
 router.get("/post/:postID", blogpost_controller.post_detail);
 
 // GET request for list of all post items.
 router.get("/posts", blogpost_controller.post_list);
+
+/// Comment ROUTES ///
+
+// GET request for creating a comment. NOTE This must come before routes that display comments (uses the comment id).
+router.get("/post/:postID/create", comment_controller.comment_create_get);
+
+// POST request for creating comment.
+router.post("/post/:postID/create", comment_controller.comment_create_post);
+
+// GET request for deleting a comment.
+router.get(
+  "/post/:postID/:commentID/delete",
+  comment_controller.comment_delete_get
+);
+
+// POST request for deleting comment.
+router.post(
+  "/post/:postID/:commentID/delete",
+  comment_controller.comment_delete_post
+);
+
+// GET request for one comment.
+router.get("/post/:postID/:commentID", comment_controller.comment_detail);
 
 /// User ROUTES ///
 

@@ -7,6 +7,7 @@ const BlogPostSchema = new Schema({
   title: { type: String, required: true },
   text: { type: String, required: true },
   timestamp: { type: Date, required: true },
+  updated_timestamp: { type: Date, required: false },
   published: { type: Boolean, required: true },
 });
 
