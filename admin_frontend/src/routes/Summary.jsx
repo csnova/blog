@@ -1,12 +1,11 @@
 import { Link, Outlet } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import viewIcon from "../assets/show.png";
 
 const Summary = ({ isSignedIn, setIsSignedIn }) => {
   return (
     <div>
-      <h1 className="pageTitle">Home</h1>
-
       {isSignedIn ? (
         <div>
           <h2 className="tableHeader">Welcome Back to You Blog Page!</h2>
@@ -15,20 +14,24 @@ const Summary = ({ isSignedIn, setIsSignedIn }) => {
             <tr>
               <th>Type</th>
               <th>Quantity</th>
-              <th>Link</th>
+              <th>View</th>
             </tr>
             <tr>
               <td>Posts</td>
               <td>Value From Database</td>
               <td>
-                <Link to="/posts">Manage Posts</Link>
+                <Link to="/posts">
+                  <img src={viewIcon} alt="" className="tableIcon" />
+                </Link>
               </td>
             </tr>
             <tr>
               <td>Users</td>
               <td>Value From Database</td>
               <td>
-                <Link to="/users">Manage Users</Link>
+                <Link to="/users">
+                  <img src={viewIcon} alt="" className="tableIcon" />
+                </Link>
               </td>
             </tr>
             <tr>
@@ -40,6 +43,7 @@ const Summary = ({ isSignedIn, setIsSignedIn }) => {
         </div>
       ) : (
         <div className="signInMessage">
+          <h1 className="pageTitle">Home</h1>
           <p>Must be Signed In to view this page</p>
           <Link to="/sign-in" className="signInButton">
             Sign In

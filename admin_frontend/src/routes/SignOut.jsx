@@ -6,9 +6,11 @@ const SignOut = ({ isSignedIn, setIsSignedIn }) => {
   return (
     <div>
       <h1 className="pageTitle">Sign-Out</h1>
-
       {isSignedIn ? (
-        <div> </div>
+        <div className="signOutMessage">
+          <p>Are you sure you want to sign-out?</p>
+          <button className="signOutButton">Sign Out</button>
+        </div>
       ) : (
         <div className="signInMessage">
           <p>Must be Signed In to view this page</p>

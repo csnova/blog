@@ -28,6 +28,9 @@
   --table-header-color: #065863;
   --light-table-color: #3a3a3a;
   --dark-table-color: #303030;
+  --light-table-hover-color: #333333;
+  --dark-table-hover-color: #2b2b2b;
+  --form-background-color: #395b60;
 }
 
 * {
@@ -147,7 +150,8 @@ body {
 }
 
 /* Style for Sign in Message */
-.signInMessage {
+.signInMessage,
+.signOutMessage {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -173,6 +177,7 @@ label {
 input {
   margin-left: 10px;
   font-size: 18px;
+  background-color: var(--form-background-color);
 }
 
 .signInSubmit,
@@ -200,7 +205,11 @@ input {
   text-align: center;
 }
 
-.statsTable {
+/* Style for Tables */
+.statsTable,
+.postsTable,
+.usersTable,
+.profileTable {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
@@ -208,22 +217,103 @@ input {
 
 .statsTable td,
 .statsTable th {
-  border: 1px solid var(--bar-border-color);
-  padding: 15px;
+  width: 250px;
 }
 
-.statsTable tr:nth-child(even) {
+.profileTable td {
+  width: 300px;
+}
+
+.profileTable th {
+  width: 150px;
+}
+
+.statsTable td,
+.statsTable th,
+.postsTable td,
+.postsTable th,
+.usersTable td,
+.usersTable th,
+.profileTable td,
+.profileTable th {
+  text-align: center;
+  border: 1px solid var(--bar-border-color);
+  padding: 15px;
+  height: 80px;
+}
+
+.statsTable tr:nth-child(even),
+.postsTable tr:nth-child(even),
+.usersTable tr:nth-child(even),
+.profileTable tr:nth-child(even) {
   background-color: var(--light-table-color);
 }
 
-.statsTable tr:hover {
+.statsTable tr:nth-child(odd),
+.postsTable tr:nth-child(odd),
+.usersTable tr:nth-child(odd),
+.profileTable tr:nth-child(odd) {
   background-color: var(--dark-table-color);
 }
 
-.statsTable th {
+.statsTable tr:nth-child(even):hover,
+.postsTable tr:nth-child(even):hover,
+.usersTable tr:nth-child(even):hover,
+.profileTable tr:nth-child(even):hover {
+  background-color: var(--light-table-hover-color);
+}
+
+.statsTable tr:nth-child(odd):hover,
+.postsTable tr:nth-child(odd):hover,
+.usersTable tr:nth-child(odd):hover,
+.profileTable tr:nth-child(odd):hover {
+  background-color: var(--dark-table-hover-color);
+}
+
+.statsTable th,
+.postsTable th,
+.usersTable th,
+.profileTable th {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: left;
+  text-align: center;
   background-color: var(--table-header-color);
   color: var(--font-color);
 }
+
+.tableIcon {
+  height: 40px;
+}
+
+.tableIcon:hover {
+  height: 37px;
+}
+
+/* Style for New Post Form */
+.formTitle,
+.formText {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.formTitleInput,
+.formTextInput {
+  width: 500px;
+  background-color: var(--form-background-color);
+}
+
+.formRadio {
+  display: flex;
+  flex-direction: row;
+}
+
+.radioButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 10px;
+}
+
+/* Style for Profile Page */
