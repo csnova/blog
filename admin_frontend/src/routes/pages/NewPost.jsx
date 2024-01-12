@@ -8,9 +8,9 @@ const NewPost = ({ isSignedIn, setIsSignedIn }) => {
       <h1 className="pageTitle">New Post</h1>
 
       {isSignedIn ? (
-        <div>
-          <div className="signIn">
-            <form className="newPostForm" onSubmit="">
+        <div className="page">
+          <div className="newPostFormBox">
+            <form className="newPostForm">
               <label className="formTitle">
                 Title:
                 <input className="formTitleInput" type="text" />
@@ -22,7 +22,7 @@ const NewPost = ({ isSignedIn, setIsSignedIn }) => {
                   name="text"
                   id="text"
                   cols="60"
-                  rows="30"
+                  rows="20"
                 ></textarea>
               </label>
               <label className="formRadio">

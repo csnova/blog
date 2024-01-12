@@ -1,10 +1,11 @@
 import { Link, Outlet } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import PostSignIn from "../postRequests/postSignIn";
 
 const SignIn = ({ isSignedIn, setIsSignedIn }) => {
   return (
-    <div>
+    <div className="page">
       <h1 className="pageTitle">Sign-In</h1>
 
       {isSignedIn ? (
@@ -20,7 +21,7 @@ const SignIn = ({ isSignedIn, setIsSignedIn }) => {
           </div>
         </div>
       ) : (
-        <div className="signIn">
+        <div className="signInFormBox">
           <form className="signInForm" onSubmit="">
             <label>
               Username:
@@ -31,7 +32,7 @@ const SignIn = ({ isSignedIn, setIsSignedIn }) => {
               <input type="password" />
             </label>
             <label>
-              <input className="signInSubmit" type="submit" value="Submit" />
+              <input className="formSubmit" type="submit" value="Submit" />
             </label>
           </form>
         </div>
@@ -41,3 +42,18 @@ const SignIn = ({ isSignedIn, setIsSignedIn }) => {
 };
 
 export default SignIn;
+
+// const YourComponent = () => {
+//   const username = "csnova";
+//   const password = "hellothere";
+
+//   const { signIn, error, loading } = PostSignIn({ username, password });
+
+//   // Rest of your component logic
+
+//   return (
+//     // Your JSX here
+//   );
+// };
+
+// export default YourComponent;

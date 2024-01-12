@@ -37,6 +37,16 @@
   box-sizing: border-box;
 }
 
+button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
 body {
   margin: 0;
   display: flex;
@@ -145,6 +155,14 @@ body {
   align-items: center;
 }
 
+.pageSpecificInfo,
+.page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .pageTitle {
   text-align: center;
 }
@@ -158,56 +176,25 @@ body {
   align-items: center;
 }
 
-/* Style for Sign in Form */
-.signInForm {
-  font-size: 20px;
-  display: flex;
-  flex-direction: column;
-  padding: 5px;
-}
-
-label {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-}
-
-input {
-  margin-left: 10px;
-  font-size: 18px;
-  background-color: var(--form-background-color);
-}
-
-.signInSubmit,
-.profileButton,
-.signOutButton {
-  padding: 10px;
-  margin: 10px;
-  border: 1px solid var(--button-border-color);
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 700;
-  background-color: var(--button-background-color);
-  color: var(--font-color);
-  text-decoration: none;
-}
-
-.signInSubmit:hover,
-.profileButton:hover,
-.signOutButton:hover {
-  background-color: var(--bar-background-color);
-}
-
 /* Style for Home Page */
 .tableHeader {
   text-align: center;
 }
 
 /* Style for Tables */
+.tableBox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+table {
+  max-width: 1200px;
+}
+
 .statsTable,
 .postsTable,
+.commentsTable,
 .usersTable,
 .profileTable {
   font-family: Arial, Helvetica, sans-serif;
@@ -232,6 +219,8 @@ input {
 .statsTable th,
 .postsTable td,
 .postsTable th,
+.commentsTable td,
+.commentsTable th,
 .usersTable td,
 .usersTable th,
 .profileTable td,
@@ -244,6 +233,7 @@ input {
 
 .statsTable tr:nth-child(even),
 .postsTable tr:nth-child(even),
+.commentsTable tr:nth-child(even),
 .usersTable tr:nth-child(even),
 .profileTable tr:nth-child(even) {
   background-color: var(--light-table-color);
@@ -251,6 +241,7 @@ input {
 
 .statsTable tr:nth-child(odd),
 .postsTable tr:nth-child(odd),
+.commentsTable tr:nth-child(odd),
 .usersTable tr:nth-child(odd),
 .profileTable tr:nth-child(odd) {
   background-color: var(--dark-table-color);
@@ -258,6 +249,7 @@ input {
 
 .statsTable tr:nth-child(even):hover,
 .postsTable tr:nth-child(even):hover,
+.commentsTable tr:nth-child(even):hover,
 .usersTable tr:nth-child(even):hover,
 .profileTable tr:nth-child(even):hover {
   background-color: var(--light-table-hover-color);
@@ -265,6 +257,7 @@ input {
 
 .statsTable tr:nth-child(odd):hover,
 .postsTable tr:nth-child(odd):hover,
+.commentsTable tr:nth-child(odd):hover,
 .usersTable tr:nth-child(odd):hover,
 .profileTable tr:nth-child(odd):hover {
   background-color: var(--dark-table-hover-color);
@@ -272,6 +265,7 @@ input {
 
 .statsTable th,
 .postsTable th,
+.commentsTable th,
 .usersTable th,
 .profileTable th {
   padding-top: 12px;
@@ -281,26 +275,89 @@ input {
   color: var(--font-color);
 }
 
-.tableIcon {
+.tableIcon,
+#tableIcon {
   height: 40px;
 }
 
-.tableIcon:hover {
+.tableIcon:hover,
+#tableIcon:hover {
   height: 37px;
 }
 
+/* Style for Sign in Form */
+.signInFormBox {
+  display: flex;
+  justify-content: center;
+}
+
+.signInForm {
+  max-width: 800px;
+  flex: 1;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  justify-content: center;
+}
+
+label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+input,
+textarea {
+  flex-grow: 1;
+  margin-left: 10px;
+  font-size: 18px;
+  background-color: var(--form-background-color);
+}
+
+.profileButton,
+.signOutButton {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid var(--button-border-color);
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  background-color: var(--button-background-color);
+  color: var(--font-color);
+  text-decoration: none;
+}
+
+.profileButton:hover,
+.signOutButton:hover {
+  background-color: var(--bar-background-color);
+}
+
+.formSubmit {
+  width: 100px;
+  flex-grow: 0;
+}
+
 /* Style for New Post Form */
+.newPostFormBox {
+  display: flex;
+  justify-content: center;
+}
+
+.newPostForm {
+  max-width: 1000px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .formTitle,
 .formText {
   display: flex;
   justify-content: space-between;
   align-items: start;
-}
-
-.formTitleInput,
-.formTextInput {
-  width: 500px;
-  background-color: var(--form-background-color);
 }
 
 .formRadio {
@@ -314,6 +371,65 @@ input {
   align-items: center;
   justify-content: center;
   margin: 0px 10px;
+}
+
+/* Style for Post & User Detail Page */
+.postDetails,
+.userDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.postDetailTopBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.postDetailButtons * {
+  padding: 5px;
+}
+
+.postDetailTitleBox,
+.postDetailTextBox,
+.userDetailsBox {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  border: 1px solid var(--bar-border-color);
+  background-color: var(--bar-background-color);
+  box-shadow: 0 3px 10px var(--bar-shadow-color);
+  margin: 0;
+  padding: 15px;
+}
+
+.postDetailTitleBox {
+  justify-content: center;
+}
+
+.postDetailTextBox {
+  justify-content: start;
+}
+
+.postDetailTitle,
+.postDetailText,
+.userDetailInfo {
+  font-weight: 400;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.postDetailCommentBox,
+.userCommentBox {
+  width: 100%;
 }
 
 /* Style for Profile Page */

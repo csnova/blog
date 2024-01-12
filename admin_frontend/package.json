@@ -10,8 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "luxon": "^3.4.4",
+    "moment": "^2.30.1",
+    "moment-timezone": "^0.5.44",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-moment": "^1.1.3",
     "react-router-dom": "^6.21.1"
   },
   "devDependencies": {

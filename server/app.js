@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const cors = require("cors");
 require("dotenv").config();
 
 const passport = require("./passport_setup");
@@ -38,6 +39,11 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+//Allow cors from this address
+app.use(cors({
+  origin: 'http://localhost:5173'
+}));
+
 //Routes
 app.use("/", indexRouter);
 app.use("/blogAPI", blogRouter);
@@ -50,12 +56,13 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
+  console.log('error:', err)
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
-  res.render("error");
+  res.json(err, err.status || 500);
+  // res.render("error");
 });
 
 module.exports = app;

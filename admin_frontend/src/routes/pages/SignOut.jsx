@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 const SignOut = ({ isSignedIn, setIsSignedIn }) => {
   return (
-    <div>
+    <div className="page">
       <h1 className="pageTitle">Sign-Out</h1>
       {isSignedIn ? (
         <div className="signOutMessage">

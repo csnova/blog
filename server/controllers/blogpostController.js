@@ -8,9 +8,10 @@ const { body, validationResult } = require("express-validator");
 
 exports.index = asyncHandler(async (req, res, next) => {
   // Get details of Posts and user counts (in parallel)
-  const [numPosts, numUsers] = await Promise.all([
+  const [numPosts, numUsers, numComments] = await Promise.all([
     BlogPost.countDocuments({}).exec(),
     User.countDocuments({}).exec(),
+    Comment.countDocuments({}).exec(),
   ]);
 
   res.json({
@@ -18,6 +19,7 @@ exports.index = asyncHandler(async (req, res, next) => {
     title: "Home Page",
     post_count: numPosts,
     user_count: numUsers,
+    comment_count: numComments,
   });
 });
 
@@ -36,7 +38,7 @@ exports.post_list = asyncHandler(async (req, res, next) => {
     allPosts = "No Posts";
   }
 
-  res.json("post_list", {
+  res.json({
     user: req.user,
     title: "Post List",
     post_list: allPosts,
@@ -51,7 +53,9 @@ exports.post_list = asyncHandler(async (req, res, next) => {
 exports.post_detail = asyncHandler(async (req, res, next) => {
   const [post, allComments] = await Promise.all([
     BlogPost.findById(req.params.postID).exec(),
-    Comment.find({ blogPost: req.params.postID }, "text timestamp user").exec(),
+    Comment.find({ blogPost: req.params.postID }, "text timestamp user")
+      .populate("user")
+      .exec(),
   ]);
 
   if (post === null) {
