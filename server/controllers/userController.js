@@ -2,6 +2,7 @@ const User = require("../models/user");
 const Comment = require("../models/comment");
 const passport = require("passport");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
@@ -124,7 +125,7 @@ exports.user_sign_up_post = [
 ];
 
 // Example Format for Adding a User
-// curl -X POST http://localhost:3000/blogAPI/user/sign-up -H "Content-Type: application/json" -d '{"name":"Kyle", "username":"kmno", "email":"kmno@gmail.com", "password":"catsrule", "confirm_password":"catsrule"}'
+// curl -X POST http://localhost:3000/blogAPI/user/sign-up -H "Content-Type: application/json" -d '{"name":"Chip", "username":"spike", "email":"spike@gmail.com", "password":"nolaforlife", "confirm_password":"nolaforlife"}'
 // Worked 1/10 9:00am
 
 // Display User sign in form on GET.
@@ -137,16 +138,39 @@ exports.user_sign_in_get = asyncHandler(async (req, res, next) => {
 // Worked 1/10 9:00am
 
 // Handle User sign in on POST.
-exports.user_sign_in_post = asyncHandler(
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/blog/user/sign-in",
-  })
-);
+exports.user_sign_in_post = (req, res, next) => {
+  passport.authenticate("local", { session: false }, (err, user, info) => {
+    if (err || !user) {
+      return res.status(400).json({
+        message: "Could not authenticate",
+        user,
+      });
+    }
+    if (err) res.send(err);
+    jwt.sign(
+      { _id: user._id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: 3600 },
+      (err, token) => {
+        if (err) return res.status(400).json(err);
+        res.json({
+          token: token,
+          user: {
+            _id: user._id,
+            name: user.name,
+            username: user.username,
+            email: user.email,
+            admin: user.admin,
+          },
+        });
+      }
+    );
+  })(req, res);
+};
 
 // Example Sign In
 // curl -X POST http://localhost:3000/blogAPI/user/sign-in -H "Content-Type: application/json" -d '{"username":"csnova", "password":"hellothere"}'
-// *Technically* Worked 1/10 9:00am
+// *Technically* Worked 1/10 9:00am (added token since then)
 
 // Display User sign out form on GET.
 exports.user_sign_out_get = asyncHandler(async (req, res, next) => {
@@ -163,7 +187,7 @@ exports.user_sign_out_post = asyncHandler(async (req, res, next) => {
     if (err) {
       return next(err);
     }
-    res.redirect("/");
+    res.json("Success");
   });
 });
 

@@ -7,12 +7,12 @@ import viewIcon from "../../assets/show.png";
 import deleteIcon from "../../assets/trash.png";
 
 const UserDetails = ({
-  isSignedIn,
-  setIsSignedIn,
+  currentUser,
+  setCurrentUser,
   userViewed,
   setUserViewed,
-  currentPost,
-  setCurrentPost,
+  postViewed,
+  setPostViewed,
 }) => {
   const { userDetails, error, loading } = getUserDetails(userViewed);
   if (error) return <p>A Network Error has occurred. </p>;
@@ -22,7 +22,7 @@ const UserDetails = ({
   return (
     <div className="page">
       <h1 className="pageTitle">User Details</h1>
-      {isSignedIn ? (
+      {currentUser ? (
         <div className="userDetails">
           <div className="userDetailsBox">
             <h3>Name:</h3>
@@ -62,7 +62,7 @@ const UserDetails = ({
 
                     function onPostClick(e) {
                       let postID = e.target.className;
-                      setCurrentPost(postID);
+                      setPostViewed(postID);
                     }
                     return (
                       <tr key={comment._id}>

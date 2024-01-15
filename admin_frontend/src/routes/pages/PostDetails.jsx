@@ -7,20 +7,20 @@ import deleteIcon from "../../assets/trash.png";
 import Moment from "moment";
 
 const PostDetails = ({
-  isSignedIn,
-  setIsSignedIn,
+  currentUser,
+  setCurrentUser,
   userViewed,
   setUserViewed,
-  currentPost,
-  setCurrentPost,
+  postViewed,
+  setPostViewed,
 }) => {
-  const { postDetails, error, loading } = getPostDetails(currentPost);
+  const { postDetails, error, loading } = getPostDetails(postViewed);
   if (error) return <p>A Network Error has occurred. </p>;
   if (loading) return <p>Loading...</p>;
   return (
     <div className="page">
       <h1 className="pageTitle">Post Details</h1>
-      {isSignedIn ? (
+      {currentUser ? (
         <div className="postDetails">
           <div className="postDetailTopBar">
             <div className="postDetailButtons">

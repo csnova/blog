@@ -1,14 +1,50 @@
 import { Link, Outlet } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import PostSignIn from "../postRequests/postSignIn";
+import { useNavigate } from "react-router-dom";
+import usePostSignIn from "../postRequests/postSignIn";
 
-const SignIn = ({ isSignedIn, setIsSignedIn }) => {
+const SignIn = ({ userToken, setUserToken, currentUser, setCurrentUser }) => {
+  const [currentUsername, setCurrentUsername] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [loginErrors, setLoginErrors] = useState("");
+  const navigate = useNavigate();
+  const { loading, attemptLogin, signIn, error } = usePostSignIn();
+  function signInSubmit(e) {
+    attemptLogin(currentUsername, currentPassword);
+  }
+
+  useEffect(() => {
+    if (signIn) {
+      if (!signIn.user) {
+        setLoginErrors(
+          "There was an error with login, check username and password and try again"
+        );
+      } else if (signIn.user.admin) {
+        setLoginErrors("");
+        localStorage.setItem("token", signIn.token);
+        setUserToken(signIn.token);
+        localStorage.setItem("user", JSON.stringify(signIn.user));
+        setCurrentUser(signIn.user);
+        navigate("/");
+      } else {
+        setLoginErrors("Must be an Admin to Login to this site.");
+      }
+    }
+  }, [signIn]);
+
+  function handleUsernameChange(e) {
+    setCurrentUsername(e.target.value);
+  }
+
+  function handlePasswordChange(e) {
+    setCurrentPassword(e.target.value);
+  }
   return (
     <div className="page">
       <h1 className="pageTitle">Sign-In</h1>
 
-      {isSignedIn ? (
+      {currentUser ? (
         <div className="alreadySignedIn">
           <p>You are already Signed in!</p>
           <div className="buttonBox">
@@ -22,19 +58,20 @@ const SignIn = ({ isSignedIn, setIsSignedIn }) => {
         </div>
       ) : (
         <div className="signInFormBox">
-          <form className="signInForm" onSubmit="">
+          <form className="signInForm">
             <label>
               Username:
-              <input type="text" />
+              <input type="text" onChange={handleUsernameChange} />
             </label>
             <label>
               Password:
-              <input type="password" />
-            </label>
-            <label>
-              <input className="formSubmit" type="submit" value="Submit" />
+              <input type="password" onChange={handlePasswordChange} />
             </label>
           </form>
+          <button className="formSubmit" onClick={signInSubmit}>
+            Submit
+          </button>
+          <h3>{loginErrors}</h3>
         </div>
       )}
     </div>
@@ -42,18 +79,3 @@ const SignIn = ({ isSignedIn, setIsSignedIn }) => {
 };
 
 export default SignIn;
-
-// const YourComponent = () => {
-//   const username = "csnova";
-//   const password = "hellothere";
-
-//   const { signIn, error, loading } = PostSignIn({ username, password });
-
-//   // Rest of your component logic
-
-//   return (
-//     // Your JSX here
-//   );
-// };
-
-// export default YourComponent;

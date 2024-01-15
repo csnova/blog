@@ -4,13 +4,13 @@ import React, { useEffect, useState } from "react";
 import getStats from "../getRequests/getStats";
 import viewIcon from "../../assets/show.png";
 
-const Summary = ({ isSignedIn, setIsSignedIn }) => {
+const Summary = ({ userToken, setUserToken, currentUser, setCurrentUser }) => {
   const { statsInfo, error, loading } = getStats();
   if (error) return <p>A Network Error has occurred. </p>;
   if (loading) return <p>Loading...</p>;
   return (
     <div className="page">
-      {isSignedIn ? (
+      {currentUser ? (
         <div className="page">
           <h2 className="tableHeader">Welcome Back to You Blog Page!</h2>
           <h3 className="tableHeader">Here are some stats!</h3>

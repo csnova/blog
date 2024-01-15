@@ -3,8 +3,10 @@ const User = require("../models/user");
 const Comment = require("../models/comment");
 const passport = require("passport");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
+const { json } = require("express");
 
 exports.index = asyncHandler(async (req, res, next) => {
   // Get details of Posts and user counts (in parallel)
@@ -97,31 +99,46 @@ exports.post_create_post = [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
-    // Create post object with escaped and trimmed data
-    const dateTime = new Date();
-    const blogPost = new BlogPost({
-      title: req.body.title,
-      text: req.body.text,
-      timestamp: dateTime,
-      published: req.body.published,
-    });
+    jwt.verify(
+      req.body.token,
+      process.env.JWT_SECRET,
+      async function (err, decoded) {
+        if (err) {
+          console.log(err);
+          res.status(401).send();
+        } else {
+          // Create post object with escaped and trimmed data
+          const dateTime = new Date();
+          const blogPost = new BlogPost({
+            title: req.body.title,
+            text: req.body.text,
+            timestamp: dateTime,
+            published: req.body.published,
+          });
 
-    if (!errors.isEmpty()) {
-      // There are errors. Render form again with sanitized values/errors messages.
-      res.json({
-        user: req.user,
-        title: "New Post",
-        errors: errors.array(),
-      });
-      return;
-    } else {
-      // Data from form is valid.
+          if (!errors.isEmpty()) {
+            // There are errors. Render form again with sanitized values/errors messages.
+            res.json({
+              user: req.user,
+              title: "New Post",
+              errors: errors.array(),
+            });
+            return;
+          } else {
+            // Data from form is valid.
 
-      // Save post.
-      await blogPost.save();
-      // Redirect to Posts
-      res.redirect("/blogAPI/posts");
-    }
+            // Save post.
+            await blogPost.save();
+            //Send Back Post id
+            res.json({
+              blogPost: {
+                _id: blogPost._id,
+              },
+            });
+          }
+        }
+      }
+    );
   }),
 ];
 

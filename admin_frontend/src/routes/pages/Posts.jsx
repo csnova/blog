@@ -7,7 +7,7 @@ import editIcon from "../../assets/edit.png";
 import deleteIcon from "../../assets/trash.png";
 import Moment from "moment";
 
-const Posts = ({ isSignedIn, setIsSignedIn, currentPost, setCurrentPost }) => {
+const Posts = ({ currentUser, setCurrentUser, postViewed, setPostViewed }) => {
   const { postInfo, error, loading } = getPosts();
   if (error) return <p>A Network Error has occurred. </p>;
   if (loading) return <p>Loading...</p>;
@@ -15,7 +15,7 @@ const Posts = ({ isSignedIn, setIsSignedIn, currentPost, setCurrentPost }) => {
     <div className="page">
       <h1 className="pageTitle">Manage Posts</h1>
 
-      {isSignedIn ? (
+      {currentUser ? (
         <div>
           <div className="tableBox">
             <table className="postsTable">
@@ -43,7 +43,7 @@ const Posts = ({ isSignedIn, setIsSignedIn, currentPost, setCurrentPost }) => {
                     let postID = e.target.className;
                     postID = postID.slice(10);
                     postID = postInfo.post_list[postID]._id;
-                    setCurrentPost(postID);
+                    setPostViewed(postID);
                   }
 
                   return (

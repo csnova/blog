@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import getUsers from "../getRequests/getUsers";
 import viewIcon from "../../assets/show.png";
 
-const Users = ({ isSignedIn, setIsSignedIn, userViewed, setUserViewed }) => {
+const Users = ({ currentUser, setCurrentUser, userViewed, setUserViewed }) => {
   const { userInfo, error, loading } = getUsers();
   if (error) return <p>A Network Error has occurred. </p>;
   if (loading) return <p>Loading...</p>;
@@ -12,7 +12,7 @@ const Users = ({ isSignedIn, setIsSignedIn, userViewed, setUserViewed }) => {
     <div className="page">
       <h1 className="pageTitle">Manage Users</h1>
 
-      {isSignedIn ? (
+      {currentUser ? (
         <div>
           <div className="tableBox">
             <table className="usersTable">

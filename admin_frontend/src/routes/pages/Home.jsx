@@ -13,10 +13,26 @@ import PostDetails from "./PostDetails";
 import UserDetails from "./UserDetails";
 
 function Home() {
-  const [isSignedIn, setIsSignedIn] = useState(false);
-  const [currentPost, setCurrentPost] = useState(null);
+  const [postViewed, setPostViewed] = useState(null);
   const [userViewed, setUserViewed] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [userToken, setUserToken] = useState(null);
   const { page } = useParams();
+
+  function checkStorage() {
+    if (!localStorage.getItem("token")) {
+      localStorage.setItem("token", null);
+      localStorage.setItem("user", null);
+    } else {
+      setUserToken(localStorage.getItem("token"));
+      setCurrentUser(JSON.parse(localStorage.getItem("user")));
+    }
+  }
+
+  useEffect(() => {
+    checkStorage();
+  }, []);
+
   return (
     <>
       <div className="topBar">
@@ -25,9 +41,9 @@ function Home() {
           <p className="title">Blog Admin Site</p>
         </div>
         <div className="currentUserBox">
-          {isSignedIn ? (
+          {currentUser ? (
             <Link to="/profile" className="currentUserButton">
-              username
+              {currentUser.username}
             </Link>
           ) : (
             <Link to="/sign-in" className="signInButton">
@@ -51,7 +67,7 @@ function Home() {
           <Link to="/users" className="linkBox">
             Manage Users
           </Link>
-          {isSignedIn ? (
+          {currentUser ? (
             <Link to="/sign-out" className="linkBox">
               Sign Out
             </Link>
@@ -65,47 +81,67 @@ function Home() {
         <div className="mainPage">
           <div className="pageSpecificInfo">
             {page === "newPost" ? (
-              <NewPost isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn} />
+              <NewPost
+                userToken={userToken}
+                setUserToken={setUserToken}
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+              />
             ) : page === "posts" ? (
               <Posts
-                isSignedIn={isSignedIn}
-                setIsSignedIn={setIsSignedIn}
-                currentPost={currentPost}
-                setCurrentPost={setCurrentPost}
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+                postViewed={postViewed}
+                setPostViewed={setPostViewed}
               />
             ) : page === "users" ? (
               <Users
-                isSignedIn={isSignedIn}
-                setIsSignedIn={setIsSignedIn}
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
                 userViewed={userViewed}
                 setUserViewed={setUserViewed}
               />
             ) : page === "sign-in" ? (
-              <SignIn isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn} />
+              <SignIn
+                userToken={userToken}
+                setUserToken={setUserToken}
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+              />
             ) : page === "sign-out" ? (
-              <SignOut isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn} />
+              <SignOut
+                userToken={userToken}
+                setUserToken={setUserToken}
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+              />
             ) : page === "profile" ? (
-              <Profile isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn} />
+              <Profile currentUser={currentUser} />
             ) : page === "post" ? (
               <PostDetails
-                isSignedIn={isSignedIn}
-                setIsSignedIn={setIsSignedIn}
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
                 userViewed={userViewed}
                 setUserViewed={setUserViewed}
-                currentPost={currentPost}
-                setCurrentPost={setCurrentPost}
+                postViewed={postViewed}
+                setPostViewed={setPostViewed}
               />
             ) : page === "user" ? (
               <UserDetails
-                isSignedIn={isSignedIn}
-                setIsSignedIn={setIsSignedIn}
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
                 userViewed={userViewed}
                 setUserViewed={setUserViewed}
-                currentPost={currentPost}
-                setCurrentPost={setCurrentPost}
+                postViewed={postViewed}
+                setPostViewed={setPostViewed}
               />
             ) : (
-              <Summary isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn} />
+              <Summary
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+                userToken={userToken}
+                setUserToken={setUserToken}
+              />
             )}
           </div>
         </div>

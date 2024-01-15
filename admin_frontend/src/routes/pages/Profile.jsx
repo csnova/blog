@@ -3,17 +3,16 @@ import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import editIcon from "../../assets/edit.png";
 
-const Profile = ({ isSignedIn, setIsSignedIn }) => {
+const Profile = ({ currentUser }) => {
   return (
     <div className="page">
       <h1 className="pageTitle">Profile</h1>
 
-      {isSignedIn ? (
+      {currentUser ? (
         <div>
-          <h2 className="tableHeader">Username</h2>
+          <h2 className="tableHeader">{currentUser.username}</h2>
           <div className="tableBox">
             <table className="profileTable">
-              {/* Real Info Made From Database */}
               <thead>
                 <tr>
                   <th>Category</th>
@@ -24,7 +23,7 @@ const Profile = ({ isSignedIn, setIsSignedIn }) => {
               <tbody>
                 <tr>
                   <th>Name</th>
-                  <td>Chandler</td>
+                  <td>{currentUser.name}</td>
                   <td>
                     <Link to="/users">
                       <img src={editIcon} alt="" className="tableIcon" />
@@ -33,7 +32,7 @@ const Profile = ({ isSignedIn, setIsSignedIn }) => {
                 </tr>
                 <tr>
                   <th>Username</th>
-                  <td>csnova</td>
+                  <td>{currentUser.username}</td>
                   <td>
                     <Link to="/users">
                       <img src={editIcon} alt="" className="tableIcon" />
@@ -42,7 +41,7 @@ const Profile = ({ isSignedIn, setIsSignedIn }) => {
                 </tr>
                 <tr>
                   <th>Email</th>
-                  <td>csnova@gmail.com</td>
+                  <td>{currentUser.email}</td>
                   <td>
                     <Link to="/users">
                       <img src={editIcon} alt="" className="tableIcon" />

@@ -286,12 +286,16 @@ table {
 }
 
 /* Style for Sign in Form */
-.signInFormBox {
+.signInFormBox,
+.alreadySignedIn {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .signInForm {
+  width: 100%;
   max-width: 800px;
   flex: 1;
   font-size: 20px;
@@ -318,7 +322,8 @@ textarea {
 }
 
 .profileButton,
-.signOutButton {
+.signOutButton,
+.formSubmit {
   padding: 10px;
   margin: 10px;
   border: 1px solid var(--button-border-color);
@@ -331,7 +336,8 @@ textarea {
 }
 
 .profileButton:hover,
-.signOutButton:hover {
+.signOutButton:hover,
+.formSubmit:hover {
   background-color: var(--bar-background-color);
 }
 
@@ -343,7 +349,8 @@ textarea {
 /* Style for New Post Form */
 .newPostFormBox {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .newPostForm {

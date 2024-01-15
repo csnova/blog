@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
-const PostSignIn = ({ username, password }) => {
+const usePostSignIn = () => {
   const [signIn, setSignIn] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const attemptLogin = useCallback((username, password) => {
     fetch(`http://localhost:3000/blogAPI/user/sign-in`, {
       method: "POST",
       headers: {
@@ -14,11 +14,8 @@ const PostSignIn = ({ username, password }) => {
       body: JSON.stringify({ username, password }),
     })
       .then(async (response) => {
-        if (response.status >= 400) {
-          throw new Error("server error");
-        }
         try {
-          const data = await response.json();
+          let data = await response.json();
           setSignIn(data);
         } catch (error) {
           setError(error);
@@ -26,7 +23,8 @@ const PostSignIn = ({ username, password }) => {
       })
       .finally(() => setLoading(false));
   }, []);
-  return { signIn, error, loading };
+
+  return { signIn, error, loading, attemptLogin };
 };
 
-export default PostSignIn;
+export default usePostSignIn;
