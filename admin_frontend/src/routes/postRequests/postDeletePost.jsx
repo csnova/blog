@@ -1,25 +1,25 @@
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
-const useNewPost = () => {
-  const [newPost, setNewPost] = useState(null);
+const usePostDelete = () => {
+  const [deletedPost, setDeletedPost] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const attemptNewPost = useCallback((title, text, published, token) => {
-    return fetch(`http://localhost:3000/blogAPI/post/create`, {
+  const attemptPostDelete = useCallback((postID, token, setPostViewed) => {
+    return fetch(`http://localhost:3000/blogAPI/post/${postID}/delete`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ title, text, published, token }),
+      body: JSON.stringify({ token }),
     })
       .then(async (response) => {
         try {
           let data = await response.json();
-          console.log(data);
-          setNewPost(data);
+          setDeletedPost(data);
+          setPostViewed(null);
           navigate("/posts");
         } catch (error) {
           setError(error);
@@ -28,7 +28,7 @@ const useNewPost = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  return { newPost, error, loading, attemptNewPost };
+  return { deletedPost, error, loading, attemptPostDelete };
 };
 
-export default useNewPost;
+export default usePostDelete;

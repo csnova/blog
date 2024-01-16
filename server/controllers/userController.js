@@ -150,7 +150,6 @@ exports.user_sign_in_post = (req, res, next) => {
     jwt.sign(
       { _id: user._id, email: user.email },
       process.env.JWT_SECRET,
-      { expiresIn: 3600 },
       (err, token) => {
         if (err) return res.status(400).json(err);
         res.json({

@@ -13,6 +13,8 @@ const UserDetails = ({
   setUserViewed,
   postViewed,
   setPostViewed,
+  commentViewed,
+  setCommentViewed,
 }) => {
   const { userDetails, error, loading } = getUserDetails(userViewed);
   if (error) return <p>A Network Error has occurred. </p>;
@@ -60,9 +62,18 @@ const UserDetails = ({
                     let timestamp = comment.timestamp;
                     timestamp = Moment(timestamp).format("DD/MM/YY");
 
+                    const commentAndPostID = `${comment.blogPost} ${comment._id}`;
+
                     function onPostClick(e) {
                       let postID = e.target.className;
                       setPostViewed(postID);
+                    }
+
+                    function onCommentClick(e) {
+                      let postID = e.target.classList[0];
+                      setPostViewed(postID);
+                      let commentID = e.target.classList[1];
+                      setCommentViewed(commentID);
                     }
                     return (
                       <tr key={comment._id}>
@@ -81,13 +92,16 @@ const UserDetails = ({
                         <td>{timestamp}</td>
                         <td>{comment.text}</td>
                         <td>
-                          <Link to="/users">
-                            <img
-                              src={deleteIcon}
-                              alt=""
-                              className="tableIcon"
-                            />
-                          </Link>
+                          <button onClick={onCommentClick}>
+                            <Link to="/deleteComment">
+                              <img
+                                src={deleteIcon}
+                                alt=""
+                                id="tableIcon"
+                                className={commentAndPostID}
+                              />
+                            </Link>
+                          </button>
                         </td>
                       </tr>
                     );

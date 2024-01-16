@@ -56,7 +56,7 @@ const Posts = ({ currentUser, setCurrentUser, postViewed, setPostViewed }) => {
                           <Link to="/post">
                             <img
                               src={viewIcon}
-                              alt=""
+                              alt="link to view post details"
                               id="tableIcon"
                               className={postButtonClass}
                             />
@@ -69,9 +69,16 @@ const Posts = ({ currentUser, setCurrentUser, postViewed, setPostViewed }) => {
                         </Link>
                       </td>
                       <td>
-                        <Link to="/users">
-                          <img src={deleteIcon} alt="" id="tableIcon" />
-                        </Link>
+                        <button onClick={onPostClick}>
+                          <Link to="/deletePost">
+                            <img
+                              src={deleteIcon}
+                              alt="link to delete post"
+                              id="tableIcon"
+                              className={postButtonClass}
+                            />
+                          </Link>
+                        </button>
                       </td>
                     </tr>
                   );

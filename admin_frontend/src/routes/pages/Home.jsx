@@ -11,10 +11,13 @@ import SignOut from "./SignOut";
 import Profile from "./Profile";
 import PostDetails from "./PostDetails";
 import UserDetails from "./UserDetails";
+import PostDelete from "./PostDelete";
+import CommentDelete from "./CommentDelete";
 
 function Home() {
   const [postViewed, setPostViewed] = useState(null);
   const [userViewed, setUserViewed] = useState(null);
+  const [commentViewed, setCommentViewed] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [userToken, setUserToken] = useState(null);
   const { page } = useParams();
@@ -87,6 +90,26 @@ function Home() {
                 currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
               />
+            ) : page === "deletePost" ? (
+              <PostDelete
+                userToken={userToken}
+                setUserToken={setUserToken}
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+                postViewed={postViewed}
+                setPostViewed={setPostViewed}
+              />
+            ) : page === "deleteComment" ? (
+              <CommentDelete
+                userToken={userToken}
+                setUserToken={setUserToken}
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+                postViewed={postViewed}
+                setPostViewed={setPostViewed}
+                commentViewed={commentViewed}
+                setCommentViewed={setCommentViewed}
+              />
             ) : page === "posts" ? (
               <Posts
                 currentUser={currentUser}
@@ -125,6 +148,8 @@ function Home() {
                 setUserViewed={setUserViewed}
                 postViewed={postViewed}
                 setPostViewed={setPostViewed}
+                commentViewed={commentViewed}
+                setCommentViewed={setCommentViewed}
               />
             ) : page === "user" ? (
               <UserDetails
@@ -134,6 +159,8 @@ function Home() {
                 setUserViewed={setUserViewed}
                 postViewed={postViewed}
                 setPostViewed={setPostViewed}
+                commentViewed={commentViewed}
+                setCommentViewed={setCommentViewed}
               />
             ) : (
               <Summary

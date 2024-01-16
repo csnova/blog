@@ -89,7 +89,7 @@ exports.comment_create_post = [
 ];
 
 // Example Comment Create
-// curl -X POST http://localhost:3000/blogAPI/post/659ed126bc9eb19ff71d27c6/create -H "Content-Type: application/json" -d '{"text":"Fake Comment", "userID":"659ece2ab68d0bb1e4107a49"}'
+// curl -X POST http://localhost:3000/blogAPI/post/65a5d1b6f8f8a4134998773e/create -H "Content-Type: application/json" -d '{"text":"Fake Comment", "userID":"65a57d7625e4f412160bf95e"}'
 // Worked 1/10 9:30am
 
 // Display comment delete form on GET.

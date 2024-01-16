@@ -13,10 +13,13 @@ const PostDetails = ({
   setUserViewed,
   postViewed,
   setPostViewed,
+  commentViewed,
+  setCommentViewed,
 }) => {
   const { postDetails, error, loading } = getPostDetails(postViewed);
   if (error) return <p>A Network Error has occurred. </p>;
   if (loading) return <p>Loading...</p>;
+
   return (
     <div className="page">
       <h1 className="pageTitle">Post Details</h1>
@@ -27,8 +30,12 @@ const PostDetails = ({
               <Link to="/users">
                 <img src={editIcon} alt="" className="tableIcon" />
               </Link>
-              <Link to="/users">
-                <img src={deleteIcon} alt="" className="tableIcon" />
+              <Link to="/deletePost">
+                <img
+                  src={deleteIcon}
+                  alt="link to delete post"
+                  id="tableIcon"
+                />
               </Link>
             </div>
           </div>
@@ -58,9 +65,18 @@ const PostDetails = ({
                     let timestamp = comment.timestamp;
                     timestamp = Moment(timestamp).format("DD/MM/YY");
 
+                    const commentAndPostID = `${postViewed} ${comment._id}`;
+
                     function onUserClick(e) {
                       let userID = e.target.className;
                       setUserViewed(userID);
+                    }
+
+                    function onCommentClick(e) {
+                      let postID = e.target.classList[0];
+                      setPostViewed(postID);
+                      let commentID = e.target.classList[1];
+                      setCommentViewed(commentID);
                     }
                     return (
                       <tr key={comment._id}>
@@ -74,13 +90,16 @@ const PostDetails = ({
                         <td>{timestamp}</td>
                         <td>{comment.text}</td>
                         <td>
-                          <Link to="/users">
-                            <img
-                              src={deleteIcon}
-                              alt=""
-                              className="tableIcon"
-                            />
-                          </Link>
+                          <button onClick={onCommentClick}>
+                            <Link to="/deleteComment">
+                              <img
+                                src={deleteIcon}
+                                alt=""
+                                id="tableIcon"
+                                className={commentAndPostID}
+                              />
+                            </Link>
+                          </button>
                         </td>
                       </tr>
                     );

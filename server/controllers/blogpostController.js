@@ -172,14 +172,26 @@ exports.post_delete_get = asyncHandler(async (req, res, next) => {
 
 // Handle post delete on POST.
 exports.post_delete_post = asyncHandler(async (req, res, next) => {
-  // Get details of post
-  const [blogPost] = await Promise.all([
-    BlogPost.findById(req.params.postID).exec(),
-  ]);
+  console.log(req.body);
+  jwt.verify(
+    req.body.token,
+    process.env.JWT_SECRET,
+    async function (err, decoded) {
+      if (err) {
+        console.log(err);
+        res.status(401).send();
+      } else {
+        // Get details of post
+        const [blogPost] = await Promise.all([
+          BlogPost.findById(req.params.postID).exec(),
+        ]);
 
-  //Delete post and redirect to list of posts.
-  await BlogPost.findByIdAndDelete(req.params.postID);
-  res.redirect(`/blogApi/posts`);
+        //Delete post and send back info
+        await BlogPost.findByIdAndDelete(req.params.postID);
+        res.json("Success");
+      }
+    }
+  );
 });
 
 // Example Post for Post Delete
