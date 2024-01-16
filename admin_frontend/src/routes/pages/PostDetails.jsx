@@ -27,8 +27,12 @@ const PostDetails = ({
         <div className="postDetails">
           <div className="postDetailTopBar">
             <div className="postDetailButtons">
-              <Link to="/users">
-                <img src={editIcon} alt="" className="tableIcon" />
+              <Link to="/updatePost">
+                <img
+                  src={editIcon}
+                  alt="link to update post"
+                  className="tableIcon"
+                />
               </Link>
               <Link to="/deletePost">
                 <img

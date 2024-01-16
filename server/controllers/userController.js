@@ -193,3 +193,72 @@ exports.user_sign_out_post = asyncHandler(async (req, res, next) => {
 // Example Sign Out
 // curl -X POST http://localhost:3000/blogAPI/user/sign-out
 // *Technically* Worked 1/10 9:00am
+
+// Handle User update on POST.
+exports.user_update_post = [
+  // Validate and sanitize fields.
+  body("name").trim().isLength({ min: 1 }).escape(),
+  body("username")
+    .trim()
+    .isLength({ min: 4 })
+    .withMessage("Username must be at least 4 characters long.")
+    .isAlphanumeric()
+    .withMessage("Username has non-alphanumeric characters.")
+    .escape(),
+  body("email").trim().isLength({ min: 5 }).escape(),
+
+  // Process request after validation and sanitization.
+  asyncHandler(async (req, res, next) => {
+    const [oldUserData] = await Promise.all([
+      User.findById(req.params.userID).exec(),
+    ]);
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+    jwt.verify(
+      req.body.token,
+      process.env.JWT_SECRET,
+      async function (err, decoded) {
+        if (err) {
+          console.log(err);
+          res.status(401).send();
+        } else {
+          // Create Users object with escaped and trimmed data
+          const user = new User({
+            username: req.body.username.toLowerCase(), // Convert to lowercase
+            password: oldUserData.password,
+            name: req.body.name,
+            email: req.body.email,
+            admin: oldUserData.admin,
+            _id: oldUserData._id,
+          });
+
+          if (!errors.isEmpty()) {
+            // There are errors. Render form again with sanitized values/errors messages.
+            res.json({
+              errors: errors.array(),
+            });
+            return;
+          } else {
+            // Data from form is valid. Save Update.
+            // Data from form is valid. Save Post Update.
+            const updateUser = await User.findByIdAndUpdate(
+              req.params.userID,
+              user,
+              {}
+            );
+            //Send Back Post id
+            res.json({
+              user: {
+                _id: updateUser._id,
+                name: updateUser.name,
+                username: updateUser.username,
+                email: updateUser.email,
+                admin: updateUser.admin,
+              },
+            });
+          }
+        }
+      }
+    );
+  }),
+];

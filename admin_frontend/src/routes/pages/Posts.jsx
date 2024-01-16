@@ -64,9 +64,16 @@ const Posts = ({ currentUser, setCurrentUser, postViewed, setPostViewed }) => {
                         </button>
                       </td>
                       <td>
-                        <Link to="/users">
-                          <img src={editIcon} alt="" id="tableIcon" />
-                        </Link>
+                        <button onClick={onPostClick}>
+                          <Link to="/updatePost">
+                            <img
+                              src={editIcon}
+                              alt="link to edit post details"
+                              id="tableIcon"
+                              className={postButtonClass}
+                            />
+                          </Link>
+                        </button>
                       </td>
                       <td>
                         <button onClick={onPostClick}>

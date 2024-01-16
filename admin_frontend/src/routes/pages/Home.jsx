@@ -13,6 +13,8 @@ import PostDetails from "./PostDetails";
 import UserDetails from "./UserDetails";
 import PostDelete from "./PostDelete";
 import CommentDelete from "./CommentDelete";
+import PostUpdate from "./PostUpdate";
+import UpdateProfile from "./ProfileUpdate";
 
 function Home() {
   const [postViewed, setPostViewed] = useState(null);
@@ -99,6 +101,15 @@ function Home() {
                 postViewed={postViewed}
                 setPostViewed={setPostViewed}
               />
+            ) : page === "updatePost" ? (
+              <PostUpdate
+                userToken={userToken}
+                setUserToken={setUserToken}
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+                postViewed={postViewed}
+                setPostViewed={setPostViewed}
+              />
             ) : page === "deleteComment" ? (
               <CommentDelete
                 userToken={userToken}
@@ -140,6 +151,12 @@ function Home() {
               />
             ) : page === "profile" ? (
               <Profile currentUser={currentUser} />
+            ) : page === "updateProfile" ? (
+              <UpdateProfile
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+                userToken={userToken}
+              />
             ) : page === "post" ? (
               <PostDetails
                 currentUser={currentUser}

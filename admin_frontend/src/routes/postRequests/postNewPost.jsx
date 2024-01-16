@@ -18,7 +18,6 @@ const useNewPost = () => {
       .then(async (response) => {
         try {
           let data = await response.json();
-          console.log(data);
           setNewPost(data);
           navigate("/posts");
         } catch (error) {

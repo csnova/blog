@@ -237,33 +237,48 @@ exports.post_update_post = [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
-    // Create a Bag object with escaped and trimmed data.
-    const dateTime = new Date();
-    const blogPost = new BlogPost({
-      title: req.body.title,
-      text: req.body.text,
-      timestamp: oldBlogPost.timestamp,
-      updated_timestamp: dateTime,
-      published: req.body.published,
-      _id: req.params.postID,
-    });
+    jwt.verify(
+      req.body.token,
+      process.env.JWT_SECRET,
+      async function (err, decoded) {
+        if (err) {
+          console.log(err);
+          res.status(401).send();
+        } else {
+          // Create the post object with escaped and trimmed data.
+          const dateTime = new Date();
+          const blogPost = new BlogPost({
+            title: req.body.title,
+            text: req.body.text,
+            timestamp: oldBlogPost.timestamp,
+            updated_timestamp: dateTime,
+            published: req.body.published,
+            _id: req.params.postID,
+          });
 
-    if (!errors.isEmpty()) {
-      res.json({
-        user: req.user,
-        title: "Update Post",
-        blogPost: blogPost,
-        errors: errors.array(),
-      });
-    } else {
-      // Data from form is valid. Save Post Update.
-      const updatePost = await BlogPost.findByIdAndUpdate(
-        req.params.postID,
-        blogPost,
-        {}
-      );
-      res.redirect(updatePost.url);
-    }
+          if (!errors.isEmpty()) {
+            // There are errors. Render form again with sanitized values/errors messages.
+            res.json({
+              errors: errors.array(),
+            });
+            return;
+          } else {
+            // Data from form is valid. Save Post Update.
+            const updatePost = await BlogPost.findByIdAndUpdate(
+              req.params.postID,
+              blogPost,
+              {}
+            );
+            //Send Back Post id
+            res.json({
+              blogPost: {
+                _id: updatePost._id,
+              },
+            });
+          }
+        }
+      }
+    );
   }),
 ];
 

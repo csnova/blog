@@ -26,7 +26,6 @@ const PostDelete = ({
   function deletePostSubmit(e) {
     for (let i = 0; i < commentArray.length; i++) {
       const commentID = commentArray[i]._id;
-      console.log("CommentId: ", commentID);
       attemptCommentDelete(postViewed, commentID, userToken, false);
     }
     attemptPostDelete(postViewed, userToken, setPostViewed);

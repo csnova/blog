@@ -11,51 +11,34 @@ const Profile = ({ currentUser }) => {
       {currentUser ? (
         <div>
           <h2 className="tableHeader">{currentUser.username}</h2>
+          <Link className="editButtonBox" to="/updateProfile">
+            <img
+              src={editIcon}
+              alt="link to update profile"
+              className="tableIcon"
+            />
+          </Link>
+          <br />
           <div className="tableBox">
             <table className="profileTable">
               <thead>
                 <tr>
                   <th>Category</th>
                   <th>Value</th>
-                  <th>Update</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <th>Name</th>
                   <td>{currentUser.name}</td>
-                  <td>
-                    <Link to="/users">
-                      <img src={editIcon} alt="" className="tableIcon" />
-                    </Link>
-                  </td>
                 </tr>
                 <tr>
                   <th>Username</th>
                   <td>{currentUser.username}</td>
-                  <td>
-                    <Link to="/users">
-                      <img src={editIcon} alt="" className="tableIcon" />
-                    </Link>
-                  </td>
                 </tr>
                 <tr>
                   <th>Email</th>
                   <td>{currentUser.email}</td>
-                  <td>
-                    <Link to="/users">
-                      <img src={editIcon} alt="" className="tableIcon" />
-                    </Link>
-                  </td>
-                </tr>
-                <tr>
-                  <th>Password</th>
-                  <td>--------</td>
-                  <td>
-                    <Link to="/users">
-                      <img src={editIcon} alt="" className="tableIcon" />
-                    </Link>
-                  </td>
                 </tr>
               </tbody>
             </table>

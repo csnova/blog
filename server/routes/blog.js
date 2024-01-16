@@ -78,6 +78,9 @@ router.get("/user/sign-out", user_controller.user_sign_out_get);
 // POST request User Sign Out
 router.post("/user/sign-out", user_controller.user_sign_out_post);
 
+// Post request to Update user.
+router.post("/user/:userID/edit", user_controller.user_update_post);
+
 // GET request for one User.
 router.get("/user/:userID", user_controller.user_detail);
 
