@@ -1,0 +1,478 @@
+/* Style for Whole Site */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: var(--light-font-color);
+  background-color: var(--page-background-color);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+  /* scrollbar-gutter: stable both-edges; */
+  margin: 0;
+
+  --page-background-color: #bfc9d9;
+  --bar-background-color: #7091c2;
+  --bar-border-color: #a6bad9;
+  --bar-shadow-color: #0e0e0e65;
+  --button-background-color: #3a3a3a;
+  --button-border-color: #272727;
+  --light-font-color: #ffffff;
+  --dark-font-color: #212121;
+  --table-header-color: #b6e7ce;
+  --light-table-color: #ffffff;
+  --dark-table-color: #f0f0f0;
+  --light-table-hover-color: #eafaf2;
+  --dark-table-hover-color: #d6f5e4;
+  --form-background-color: #b8c8e0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+/* Style for  Top Bar*/
+.topBar,
+.sideBar {
+  display: flex;
+  border: 1px solid var(--bar-border-color);
+  background-color: var(--bar-background-color);
+  box-shadow: 0 3px 10px var(--bar-shadow-color);
+  margin: 0;
+}
+
+.topBar {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  width: 100vw;
+  min-width: 760px;
+  height: 7vh;
+  min-height: 70px;
+}
+
+.logoBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  width: fit-content;
+  margin: 10px;
+}
+
+.logo {
+  height: 50px;
+  margin: 10px;
+}
+
+.currentUserBox {
+  display: flex;
+  justify-content: end;
+}
+
+.currentUserButton,
+.signInButton {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid var(--button-border-color);
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  background-color: var(--button-background-color);
+  color: var(--light-font-color);
+  text-decoration: none;
+}
+
+.currentUserButton:hover,
+.signInButton:hover {
+  background-color: var(--page-background-color);
+  color: var(--dark-font-color);
+}
+
+/* Sets Everything But Top Bar as Flex-Row */
+.centerPage {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Style for Navigation Side Bar */
+.sideBar {
+  flex-grow: 0;
+  font-size: 18px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  width: 150px;
+  height: 92vh;
+}
+
+.linkBox {
+  padding: 30px 10px;
+  width: 100%;
+  border: 1px solid var(--bar-border-color);
+  box-shadow: 0 3px 10px var(--bar-shadow-color);
+  color: var(--font-color);
+  text-decoration: none;
+}
+
+.linkBox:hover {
+  background-color: var(--page-background-color);
+  color: var(--dark-font-color);
+}
+
+/* Style for the Main Content on Every Page */
+.mainPage {
+  flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.pageSpecificInfo,
+.page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--dark-font-color);
+}
+
+.pageTitle {
+  text-align: center;
+}
+
+/* Style for Sign in Message */
+.signInMessage,
+.signOutMessage,
+.deleteMessage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style for Home Page */
+.tableHeader {
+  text-align: center;
+}
+
+/* Style for Tables */
+.tableBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+table {
+  max-width: 1200px;
+}
+
+.statsTable,
+.postsTable,
+.commentsTable,
+.usersTable,
+.profileTable {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.statsTable td,
+.statsTable th {
+  width: 250px;
+}
+
+.profileTable td {
+  width: 300px;
+}
+
+.profileTable th {
+  width: 150px;
+}
+
+.statsTable td,
+.statsTable th,
+.postsTable td,
+.postsTable th,
+.commentsTable td,
+.commentsTable th,
+.usersTable td,
+.usersTable th,
+.profileTable td,
+.profileTable th {
+  text-align: center;
+  border: 1px solid var(--bar-border-color);
+  padding: 15px;
+  height: 80px;
+}
+
+.statsTable tr:nth-child(even),
+.postsTable tr:nth-child(even),
+.commentsTable tr:nth-child(even),
+.usersTable tr:nth-child(even),
+.profileTable tr:nth-child(even) {
+  background-color: var(--light-table-color);
+}
+
+.statsTable tr:nth-child(odd),
+.postsTable tr:nth-child(odd),
+.commentsTable tr:nth-child(odd),
+.usersTable tr:nth-child(odd),
+.profileTable tr:nth-child(odd) {
+  background-color: var(--dark-table-color);
+}
+
+.statsTable tr:nth-child(even):hover,
+.postsTable tr:nth-child(even):hover,
+.commentsTable tr:nth-child(even):hover,
+.usersTable tr:nth-child(even):hover,
+.profileTable tr:nth-child(even):hover {
+  background-color: var(--light-table-hover-color);
+}
+
+.statsTable tr:nth-child(odd):hover,
+.postsTable tr:nth-child(odd):hover,
+.commentsTable tr:nth-child(odd):hover,
+.usersTable tr:nth-child(odd):hover,
+.profileTable tr:nth-child(odd):hover {
+  background-color: var(--dark-table-hover-color);
+}
+
+.statsTable th,
+.postsTable th,
+.commentsTable th,
+.usersTable th,
+.profileTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: var(--table-header-color);
+  color: var(--font-color);
+}
+
+.tableIcon,
+#tableIcon {
+  height: 40px;
+}
+
+.tableIcon:hover,
+#tableIcon:hover {
+  height: 37px;
+}
+
+/* Style for Sign in Form */
+.signInFormBox,
+.alreadySignedIn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.signInForm {
+  width: 100%;
+  max-width: 800px;
+  flex: 1;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  justify-content: center;
+}
+
+label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+input,
+textarea {
+  flex-grow: 1;
+  margin-left: 10px;
+  font-size: 18px;
+  background-color: var(--form-background-color);
+}
+
+.profileButton,
+.signOutButton,
+.deleteButton,
+.formSubmit {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid var(--button-border-color);
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  background-color: var(--button-background-color);
+  color: var(--font-color);
+  text-decoration: none;
+}
+
+.deleteButton {
+  background-color: #962b2b;
+}
+
+.deleteButton:hover {
+  background-color: #b43030;
+}
+
+.profileButton:hover,
+.signOutButton:hover,
+.formSubmit:hover {
+  background-color: var(--bar-background-color);
+}
+
+.formSubmit {
+  width: 100px;
+  flex-grow: 0;
+}
+
+/* Style for New Post Form */
+.newPostFormBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.newPostForm {
+  max-width: 1000px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.formTitle,
+.formText {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.formRadio {
+  display: flex;
+  flex-direction: row;
+}
+
+.radioButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 10px;
+}
+
+/* Style for Delete Post */
+.postDeleteCommentBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.commentNum {
+  display: flex;
+}
+
+.commentNum * {
+  margin: 5px;
+}
+
+/* Style for Post & User Detail Page */
+.postDetails,
+.userDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.postDetailTopBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.postDetailButtons * {
+  padding: 5px;
+}
+
+.postDetailTitleBox,
+.postDetailTextBox,
+.commentDetailTextBox,
+.userDetailsBox {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  border: 1px solid var(--bar-border-color);
+  background-color: var(--bar-background-color);
+  box-shadow: 0 3px 10px var(--bar-shadow-color);
+  margin: 0;
+  padding: 15px;
+}
+
+.postDetailTitleBox,
+.commentDetailTextBox {
+  justify-content: center;
+}
+
+.postDetailTextBox {
+  justify-content: start;
+}
+
+.postDetailTitle,
+.postDetailText,
+.commentDetailText,
+.userDetailInfo {
+  font-weight: 400;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.postDetailCommentBox,
+.userCommentBox {
+  width: 100%;
+}
+
+.editButtonBox {
+  display: flex;
+  justify-content: center;
+}
