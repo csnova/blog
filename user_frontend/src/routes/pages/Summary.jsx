@@ -47,7 +47,7 @@ const Summary = ({ currentUser, setPostViewed }) => {
                         <td>{timestamp}</td>
                         <td>
                           <button onClick={onPostClick}>
-                            <Link to="/post">
+                            <Link to="/blog/post">
                               <img
                                 src={viewIcon}
                                 alt="link to view post details"
@@ -69,9 +69,14 @@ const Summary = ({ currentUser, setPostViewed }) => {
         <div className="signInMessage">
           <h1 className="pageTitle">Home</h1>
           <p>Must be Signed In to view this page</p>
-          <Link to="/sign-in" className="signInButton">
-            Sign In
-          </Link>
+          <div className="signInUp">
+            <Link to="/blog/sign-in" className="signInButton">
+              Sign In
+            </Link>
+            <Link to="/blog/sign-up" className="signInButton">
+              Sign Up
+            </Link>
+          </div>
         </div>
       )}
     </div>

@@ -3,6 +3,7 @@ const BlogPost = require("../models/blogpost");
 const User = require("../models/user");
 const passport = require("passport");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
@@ -59,32 +60,40 @@ exports.comment_create_post = [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
-    // Create post object with escaped and trimmed data
-    const dateTime = new Date();
-    const comment = new Comment({
-      blogPost: req.params.postID,
-      text: req.body.text,
-      timestamp: dateTime,
-      user: req.body.userID,
-    });
+    jwt.verify(
+      req.body.token,
+      process.env.JWT_SECRET,
+      async function (err, decoded) {
+        if (err) {
+          console.log(err);
+          res.status(401).send();
+        } else {
+          // Create post object with escaped and trimmed data
+          const dateTime = new Date();
+          const comment = new Comment({
+            blogPost: req.params.postID,
+            text: req.body.text,
+            timestamp: dateTime,
+            user: req.body.userID,
+          });
 
-    if (!errors.isEmpty()) {
-      // There are errors. Render form again with sanitized values/errors messages.
-      res.json({
-        user: req.body.userID,
-        blogPost: req.params.postID,
-        title: "New Comment",
-        errors: errors.array(),
-      });
-      return;
-    } else {
-      // Data from form is valid.
+          if (!errors.isEmpty()) {
+            // There are errors. Render form again with sanitized values/errors messages.
+            res.json({
+              errors: errors.array(),
+            });
+            return;
+          } else {
+            // Data from form is valid.
 
-      // Save post.
-      await comment.save();
-      // Redirect to Posts
-      res.redirect("/blogAPI/posts");
-    }
+            // Save Comment.
+            await comment.save();
+            // Send Back success
+            res.json("Success");
+          }
+        }
+      }
+    );
   }),
 ];
 

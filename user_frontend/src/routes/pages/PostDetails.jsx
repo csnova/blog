@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import getPostDetails from "../getRequests/getPostDetails";
 import Moment from "moment";
+import addIcon from "../../assets/add.png";
 
 const PostDetails = ({ currentUser, postViewed }) => {
   const { postDetails, error, loading } = getPostDetails(postViewed);
@@ -14,6 +15,7 @@ const PostDetails = ({ currentUser, postViewed }) => {
       <h1 className="pageTitle">Post Details</h1>
       {currentUser ? (
         <div className="postDetails">
+          <br />
           <div className="postDetailTitleBox">
             <h2>Title:</h2>
             <h2 className="postDetailTitle">{postDetails.post.title}</h2>
@@ -24,7 +26,16 @@ const PostDetails = ({ currentUser, postViewed }) => {
           </div>
           <br />
           <div className="postDetailCommentBox">
-            <h2 className="tableHeader">Comments:</h2>
+            <div className="headerBox">
+              <Link className="addButtonBox" to="/blog/newComment">
+                <img
+                  src={addIcon}
+                  alt="link to update profile"
+                  className="addIcon"
+                />
+              </Link>
+              <h2 className="tableHeader">Comments:</h2>
+            </div>
             <div className="tableBox">
               <table className="commentsTable">
                 <thead>
@@ -54,9 +65,14 @@ const PostDetails = ({ currentUser, postViewed }) => {
       ) : (
         <div className="signInMessage">
           <p>Must be Signed In to view this page</p>
-          <Link to="/sign-in" className="signInButton">
-            Sign In
-          </Link>
+          <div className="signInUp">
+            <Link to="/blog/sign-in" className="signInButton">
+              Sign In
+            </Link>
+            <Link to="/blog/sign-up" className="signInButton">
+              Sign Up
+            </Link>
+          </div>
         </div>
       )}
     </div>

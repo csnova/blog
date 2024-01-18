@@ -29,8 +29,8 @@
   --table-header-color: #b6e7ce;
   --light-table-color: #ffffff;
   --dark-table-color: #f0f0f0;
-  --light-table-hover-color: #eafaf2;
-  --dark-table-hover-color: #d6f5e4;
+  --light-table-hover-color: #e4e4e4;
+  --dark-table-hover-color: #e2e2e2;
   --form-background-color: #b8c8e0;
 }
 
@@ -96,6 +96,11 @@ body {
 .currentUserBox {
   display: flex;
   justify-content: end;
+}
+
+.signInUp {
+  display: flex;
+  flex-direction: row;
 }
 
 .currentUserButton,
@@ -184,6 +189,31 @@ body {
 /* Style for Home Page */
 .tableHeader {
   text-align: center;
+}
+
+.headerBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addIcon {
+  height: 20px;
+}
+
+.addButtonBox {
+  padding: 5px 10px;
+  border: 1px solid var(--button-border-color);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--button-background-color);
+  margin: 20px;
+}
+
+.addButtonBox:hover {
+  background-color: var(--bar-background-color);
 }
 
 /* Style for Tables */
@@ -325,6 +355,7 @@ textarea {
   margin-left: 10px;
   font-size: 18px;
   background-color: var(--form-background-color);
+  color: var(--dark-font-color);
 }
 
 .profileButton,
@@ -338,7 +369,7 @@ textarea {
   font-size: 16px;
   font-weight: 700;
   background-color: var(--button-background-color);
-  color: var(--font-color);
+  color: var(--light-font-color);
   text-decoration: none;
 }
 
@@ -354,6 +385,7 @@ textarea {
 .signOutButton:hover,
 .formSubmit:hover {
   background-color: var(--bar-background-color);
+  color: var(--dark-font-color);
 }
 
 .formSubmit {
@@ -475,4 +507,5 @@ textarea {
 .editButtonBox {
   display: flex;
   justify-content: center;
+  height: 40px;
 }

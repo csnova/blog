@@ -16,7 +16,7 @@ const Router = () => {
       errorElement: <ErrorPage />,
     },
     {
-      path: "/:page",
+      path: "blog/:page",
       element: <Home />,
       errorElement: <ErrorPage />,
     },

@@ -97,6 +97,24 @@ exports.user_sign_up_post = [
         admin: false,
       });
 
+      jwt.sign(
+        { _id: user._id, email: user.email },
+        process.env.JWT_SECRET,
+        (err, token) => {
+          if (err) return res.status(400).json(err);
+          res.json({
+            token: token,
+            user: {
+              _id: user._id,
+              name: user.name,
+              username: user.username,
+              email: user.email,
+              admin: user.admin,
+            },
+          });
+        }
+      );
+
       if (!errors.isEmpty()) {
         // There are errors. Render form again with sanitized values/errors messages.
         res.json({
@@ -110,15 +128,6 @@ exports.user_sign_up_post = [
 
         // Save user.
         await user.save();
-
-        // Log in the user after successful signup
-        req.login(user, (err) => {
-          if (err) {
-            return next(err);
-          }
-          // Redirect to homepage
-          res.json(user);
-        });
       }
     });
   }),
